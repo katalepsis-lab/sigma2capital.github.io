@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sigma Square Capital | Market Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Option 2 palette */
+      --ink: #0F172A;            /* main background */
+      --navy: #111827;           /* header / hero base */
+      --ember: #0D9488;          /* teal accent */
+      --cobalt: #169873;         /* orange accent */
+      --ivory: #E5E7EB;          /* light text / surfaces */
+      --muted: rgba(229, 231, 235, 0.72);
+      --card: rgba(15, 23, 42, 0.9);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 22% 20%, rgba(13, 148, 136, 0.22), transparent 34%),
+        radial-gradient(circle at 78% 5%, rgba(22, 152, 115, 0.18), transparent 30%),
+        linear-gradient(135deg, var(--ink), var(--navy));
+      color: var(--ivory);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.88);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+    .brand .mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--ember), var(--cobalt));
+      display: grid;
+      place-items: center;
+      color: #020617;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.95rem;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--ivory); opacity: 1; }
+    .cta-btn {
+      background: linear-gradient(120deg, var(--ember), var(--cobalt));
+      border: none;
+      color: #020617;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(0,0,0,0.45); }
+
+    main { max-width: 1200px; margin: auto; padding: 60px 5vw 96px; }
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      padding: 36px;
+      border-radius: var(--radius);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 75% 50%, rgba(13, 148, 136, 0.32), transparent 40%);
+      z-index: -1;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; }
+    .eyebrow { color: var(--ivory); text-transform: uppercase; letter-spacing: 1.6px; font-size: 0.78rem; opacity: 0.86; }
+    .hero p { color: var(--muted); margin: 16px 0 22px; max-width: 640px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .ghost-btn {
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: var(--ivory);
+      background: transparent;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+    .ghost-btn:hover {
+      border-color: var(--ember);
+      color: var(--ivory);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .stat-deck { display: grid; gap: 12px; }
+    .stat {
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .stat .label { color: var(--muted); font-size: 0.85rem; }
+    .stat .value { font-size: 1.5rem; font-weight: 700; color: var(--ivory); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13, 148, 136, 0.18);
+      color: var(--ivory);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(13, 148, 136, 0.55);
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    section { margin-top: 72px; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-head h2 { font-size: 1.6rem; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      right: -30%;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.14), transparent 55%);
+      transform: rotate(-8deg);
+    }
+    .card h3 { font-size: 1.1rem; color: var(--ivory); }
+    .card p { color: var(--muted); }
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(13, 148, 136, 0.6);
+      color: var(--ivory);
+      font-size: 0.8rem;
+      letter-spacing: 0.4px;
+    }
+    .timeline { display: grid; gap: 14px; margin-top: 12px; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ember);
+      margin-top: 6px;
+      box-shadow: 0 0 0 6px rgba(13, 148, 136, 0.22);
+    }
+    .timeline-item strong { color: var(--ivory); }
+    .timeline-item span { color: var(--muted); font-size: 0.95rem; }
+    .cta-panel {
+      margin-top: 60px;
+      padding: 26px;
+      border-radius: var(--radius);
+      background: linear-gradient(
+        120deg,
+        rgba(13, 148, 136, 0.2),
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 1)
+      );
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: grid;
+      gap: 12px;
+      align-items: center;
+    }
+    .cta-panel .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    footer {
+      margin: 60px auto 30px;
+      max-width: 1200px;
+      padding: 0 5vw;
+      color: var(--muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    [data-reveal].show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 720px) {
+      nav { padding: 14px 5vw; }
+      .hero { padding: 26px; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <div class="mark">&#931;&#178;</div>
+        <div>
+          <div>Sigma Square Capital</div>
+          <small style="color: var(--muted); font-weight: 500;">Market Intelligence</small>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#dashboards">Dashboards</a>
+        <a href="#signals">Signals</a>
+        <a href="#process">Process</a>
+      </div>
+      <button class="cta-btn">Request Access</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Data-driven conviction</div>
+        <h1>Macro, sector, and asset-class intelligence built for decisive investors.</h1>
+        <p>Sigma Square Capital turns dense macro data into concise dashboards, trade-relevant commentary, and alerts that flag regime shifts before they show up in headlines.</p>
+        <div class="hero-actions">
+          <button class="cta-btn">Book a walkthrough</button>
+          <button class="ghost-btn">See sample dashboards</button>
+          <span class="pill">Timely signals / Institutional-grade</span>
+        </div>
+      </div>
+      <div class="stat-deck" aria-label="Key stats">
+        <div class="stat">
+          <div class="label">Coverage</div>
+          <div class="value">45+ economies</div>
+        </div>
+        <div class="stat">
+          <div class="label">Signals latency</div>
+          <div class="value">&lt; 60 minutes</div>
+        </div>
+        <div class="stat">
+          <div class="label">Drawdown alerts</div>
+          <div class="value">Proactive / Daily</div>
+        </div>
+        <div class="stat">
+          <div class="label">Client focus</div>
+          <div class="value">Macro & multi-asset</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboards" data-reveal>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Dashboards</div>
+          <h2>Concise, comparative, and always current.</h2>
+        </div>
+        <span class="tag">Macro / Sector / Asset class</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Macro Regime Map</h3>
+          <p>Track growth, inflation, liquidity, and policy stance with a regime heatmap that updates as data prints land.</p>
+        </div>
+        <div class="card">
+          <h3>Sector Leadership</h3>
+          <p>Identify rotation early with breadth, factor skew, and correlation breakdowns across sectors and styles.</p>
+        </div>
+        <div class="card">
+          <h3>Cross-Asset Stress</h3>
+          <p>Monitor volatility, funding stress, and dispersion to understand when risk premia are repricing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="signals" data-reveal>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Signals & Alerts</div>
+          <h2>Trade-relevant commentary, delivered before the crowd.</h2>
+        </div>
+        <span class="tag">Email / Slack / Terminal</span>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Event-Linked Alerts</h3>
+          <p>Surprise indices and probability bands push notifications when prints break trend or consensus.</p>
+        </div>
+        <div class="card">
+          <h3>Actionable Notes</h3>
+          <p>Concise context on what moved, why it matters, and how it shifts the playbook for equities, rates, FX, and credit.</p>
+        </div>
+        <div class="card">
+          <h3>Risk Tripwires</h3>
+          <p>Auto-triggered flags on liquidity deterioration, vol-of-vol spikes, and correlation shocks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" data-reveal>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Process</div>
+          <h2>A disciplined pipeline from data to decision.</h2>
+        </div>
+        <span class="tag">Transparent methodology</span>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div>
+            <strong>Ingest & Cleanse</strong>
+            <span>High-frequency macro, market microstructure, policy trackers normalized and de-noised.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div>
+            <strong>Model & Detect</strong>
+            <span>State detection for regimes, nowcasts, and factor rotations with stability thresholds.</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div>
+            <strong>Distribute & Alert</strong>
+            <span>Dashboards refresh continuously; signals route to the channels your team uses.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-panel" data-reveal>
+      <div>
+        <div class="eyebrow">Get access</div>
+        <h2>Let's align on your coverage and alerting needs.</h2>
+        <p style="color: var(--muted);">Share your mandates, markets, and preferred delivery. We tailor dashboards and alert thresholds to your workflow.</p>
+      </div>
+      <div class="actions">
+        <button class="cta-btn">Schedule a call</button>
+        <button class="ghost-btn">Download a sample pack</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>(c) 2025 Sigma Square Capital. Market intelligence for decisive investors.</div>
+    <div>contact@sigma2capital.com / New York & London</div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    document.querySelectorAll("[data-reveal]").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
